@@ -53,7 +53,7 @@ export function ExoplanetProvider({ children }) {
       setExoplanets(res.exoplanets);
       setLoading(false)
     } catch (error) {
-      console.log(error)
+      setErr(error.message)
     }
   };
   const createExoplanet = async (Exoplanet) => {
@@ -61,7 +61,7 @@ export function ExoplanetProvider({ children }) {
       const res = await createExoplanetRequest(Exoplanet);
       await getExoplanets()
     } catch (error) {
-      console.error("Error al crear la tarea:", error);
+      setErr(error.message)
     }
   };
   const deleteExoplanet = (id) => {
@@ -83,7 +83,7 @@ export function ExoplanetProvider({ children }) {
       const res = await getExoplanetRequest(id);
       return res;
     } catch (error) {
-      console.log(error)
+      setErr(error.message)
       return {}
     }
   };
@@ -92,7 +92,7 @@ export function ExoplanetProvider({ children }) {
     try {
       await updateExoplanetRequest(id, Exoplanet);
     } catch (error) {
-      console.error(error);
+      setErr(error.message)
     }
   };
 

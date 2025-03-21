@@ -5,11 +5,18 @@ import { push, ref, get, equalTo, query, orderByChild } from 'firebase/database'
 export const registerRequest = async (data) => {
   const { email, username, password } = data;
 
+  const userRef = ref(database, 'users')
+  const userQuery = query(userRef, orderByChild('email'), equalTo(email))
+  const users = await get(userQuery)
+  if (users.exists()) {
+    throw new Error("This email already exists")
+  }
+
   const { key } = await push(ref(database, 'users'), {email, username, password});
   const user = await get(ref(database, 'users/' + key))
   
-  const token = jwt.sign({id: user.key}, SECRET_KEY, { expiresIn: "1h" });
-  localStorage.setItem(LOCALSTORAGE_NAME, token)
+  const token = {id: key}
+  localStorage.setItem(LOCALSTORAGE_NAME, JSON.stringify(token))
 
   return user.val()
 }
