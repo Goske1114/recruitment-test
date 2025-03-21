@@ -3,7 +3,7 @@ import { database } from './firebase';
 import { push, ref, get, equalTo, query, orderByChild } from 'firebase/database'
 
 export const registerRequest = async (data) => {
-  const { email, username, password } = data;
+  const { email, password } = data;
 
   const userRef = ref(database, 'users')
   const userQuery = query(userRef, orderByChild('email'), equalTo(email))
@@ -12,7 +12,7 @@ export const registerRequest = async (data) => {
     throw new Error("This email already exists")
   }
 
-  const { key } = await push(ref(database, 'users'), {email, username, password});
+  const { key } = await push(ref(database, 'users'), {email, password});
   const user = await get(ref(database, 'users/' + key))
   
   const token = {id: key}
@@ -59,7 +59,6 @@ export const verifyTokenRequest = async () => {
     throw new Error('No authorization')
   return {
     id: userFound.key,
-    username: userFound.val().username,
     email: userFound.val().email,
   };
 }

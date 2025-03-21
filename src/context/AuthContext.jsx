@@ -29,7 +29,11 @@ export const AuthProvider = ({ children }) => {
   }, [err]);
 
   const signup = async (user) => {
-    try {  
+    if (user.password !== user.password2) {
+      setErr('Password Confirm failed')
+      return
+    }
+    try {
       const res = await registerRequest(user);
       setUser(res);
       setIsAuthenticated(true);
