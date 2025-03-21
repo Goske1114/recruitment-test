@@ -30,7 +30,7 @@ function Navbar() {
         }
         {!isAuthenticated ? null :
           <span className="font-bold lg:mr-10 lg:ml-10 md:mb-3 md:mt-3"> 
-            {user.username}
+            {user.email}
           </span>
         }
         <ul className="flex gap-x-2 flex-wrap items-center justify-center">
@@ -71,7 +71,7 @@ function Navbar() {
                   href="/register"
                   className="bg-indigo-500 px-4 py-1 rounded-sm"
                 >
-                  register
+                  Register
                 </Link>
               </li>
             </>

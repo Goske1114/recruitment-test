@@ -17,7 +17,7 @@ function RegisterPage() {
     if (isAuthenticated) router.push("/");
   }, [isAuthenticated]);
 
-  const onSubmit = handleSubmit(async (value) => {
+  const onSubmit = handleSubmit((value) => {
     signup(value);
   });
   return (
@@ -33,16 +33,6 @@ function RegisterPage() {
         </h1>
 
         <form onSubmit={onSubmit}>
-          <p className="text-white"> Username</p>
-          <input
-            type="text"
-            {...register("username", { required: true })}
-            className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
-            placeholder="Name"
-          />
-          {errors.username && (
-            <p className="text-red-500">Username is required</p>
-          )}
           <p className="text-white"> Email</p>
           <input
             type="email"
@@ -57,6 +47,13 @@ function RegisterPage() {
             {...register("password", { required: true })}
             className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
             placeholder="Password"
+          />
+          <p className="text-white"> Password Confirm</p>
+          <input
+            type="password"
+            {...register("password2", { required: true })}
+            className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2"
+            placeholder="Password Confirm"
           />
           {errors.password && (
             <p className="text-red-500">Password is required</p>
